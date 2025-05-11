@@ -29,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
  * @author vikus
  */
 public class Supply extends JFrame {
-    private static final String URL = "jdbc:postgresql://localhost:5432/your_database"; // Замените на ваше имя базы данных
-    private static final String USER = "your_username"; // Замените на ваше имя пользователя
-    private static final String PASSWORD = "your_password"; // Замените на ваш пароль
+    private static final String URL = "jdbc:postgresql://localhost:5432/your_database"; 
+    private static final String USER = "your_username"; 
+    private static final String PASSWORD = "your_password"; 
 
     private JTable supplyTable;
     private DefaultTableModel tableModel;
@@ -46,16 +46,16 @@ public class Supply extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        // Создание таблицы
+        
         tableModel = new DefaultTableModel(new String[]{"ID", "Supply Date", "Component Type", "Component Name", "Quantity", "Supplier"}, 0);
         supplyTable = new JTable(tableModel);
         loadSupplies();
 
-        // Добавление прокрутки для таблицы
+       
         JScrollPane scrollPane = new JScrollPane(supplyTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Панель для добавления новых поставок
+        
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(5, 2));
 
@@ -124,7 +124,7 @@ public class Supply extends JFrame {
             pstmt.setString(4, supplier);
             pstmt.executeUpdate();
 
-            // Обновление таблицы
+            
             tableModel.addRow(new Object[]{null, new Date(System.currentTimeMillis()), componentType, componentName, quantity, supplier});
             clearInputFields();
         } catch (SQLException e) {

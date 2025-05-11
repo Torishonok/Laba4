@@ -15,9 +15,9 @@ import java.util.Random;
  * @author vikus
  */
 public class SupplyGenerator {
-    static final String URL = "jdbc:postgresql://localhost:5432/Ollivander"; // Замените на ваш URL
-    static final String USER = "postgres"; // Замените на ваше имя пользователя
-    static final String PASSWORD = "12345"; // Замените на ваш пароль
+    static final String URL = "jdbc:postgresql://localhost:5432/Ollivander"; 
+    static final String USER = "postgres"; 
+    static final String PASSWORD = "12345"; 
 
     private static final String[] COMPONENT_TYPES = {"Липа", "Ель", "Акация", "Английский дуб", "Боярышник", "Бузина", "Красное дерево", "Ясень", "Кедр","Чёрный орешник" };
     private static final String[] COMPONENT_NAMES = {"Волос Вейлы", "Сердечная жила дракона", "Шерсть единорога", "Перо феникса", "Рог рогатого змея", "Ус тролля", "Крыло феи", "Рог васелиска","Волос африканской русалки", "Шерсть вампуса"};
@@ -40,11 +40,11 @@ public class SupplyGenerator {
         String insertSupply = "INSERT INTO Supplies (supply_date, component_type, component_name, quantity, supplier) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement pstmt = connection.prepareStatement(insertSupply)) {
-            pstmt.setDate(1, java.sql.Date.valueOf("2024-06-01")); // Установите дату поставки
+            pstmt.setDate(1, java.sql.Date.valueOf("2024-06-01")); 
             pstmt.setString(2, getRandomComponentType());
             pstmt.setString(3, getRandomComponentName());
             pstmt.setInt(4, getRandomQuantity());
-            pstmt.setString(5, getRandomSupplier()); // Генерация имени поставщика
+            pstmt.setString(5, getRandomSupplier()); 
 
             pstmt.executeUpdate();
             //System.out.println("Новая поставка успешно добавлена.");

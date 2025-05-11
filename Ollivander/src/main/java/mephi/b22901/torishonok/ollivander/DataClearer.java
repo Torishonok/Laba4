@@ -23,7 +23,7 @@ public class DataClearer {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement statement = connection.createStatement()) {
 
-            // Удаление данных из таблиц
+            
             statement.executeUpdate("DELETE FROM wandmaterials;");
             statement.executeUpdate("DELETE FROM wands;");
             statement.executeUpdate("DELETE FROM supplies;");

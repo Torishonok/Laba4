@@ -22,21 +22,21 @@ import javax.swing.table.DefaultTableModel;
  * @author vikus
  */
 public class SuppliesInfo extends JFrame {
-    private static final String URL = "jdbc:postgresql://localhost:5432/Ollivander"; // Замените на ваше имя базы данных
-    private static final String USER = "postgres"; // Замените на ваше имя пользователя
-    private static final String PASSWORD = "12345"; // Замените на ваш пароль
+    private static final String URL = "jdbc:postgresql://localhost:5432/Ollivander"; 
+    private static final String USER = "postgres"; 
+    private static final String PASSWORD = "12345"; 
 
     public SuppliesInfo() {
         setTitle("Информация о складе");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Создание таблицы для отображения данных
+        
         DefaultTableModel tableModel = new DefaultTableModel(new String[]{"ID", "Supply Date", "Component Type", "Component Name", "Quantity", "Supplier"}, 0);
         JTable suppliesTable = new JTable(tableModel);
         loadSupplies(tableModel);
 
-        // Добавление прокрутки для таблицы
+       
         JScrollPane scrollPane = new JScrollPane(suppliesTable);
         add(scrollPane, BorderLayout.CENTER);
     }

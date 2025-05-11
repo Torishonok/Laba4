@@ -22,7 +22,7 @@ public class MaterialOrder {
     private SupplyGenerator supplyGenerator = new SupplyGenerator();
 
     public void orderMaterials() {
-        // Создание диалогового окна для выбора количества древесины и сердцевин
+        
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 2));
 
@@ -46,12 +46,12 @@ public class MaterialOrder {
                     return;
                 }
 
-                // Генерация чека
+                
                 String receipt = String.format("Ваш заказ:\nДревесина: %d штук\nСердцевины: %d штук", woodQuantity, coreQuantity);
                 JOptionPane.showMessageDialog(null, receipt, "Чек", JOptionPane.INFORMATION_MESSAGE);
                 
 
-                // Генерация содержимого заказа и добавление в таблицу Supplies
+                
                 addToSupplies(woodQuantity, coreQuantity);
 
             } catch (NumberFormatException e) {
@@ -62,12 +62,12 @@ public class MaterialOrder {
 
     private void addToSupplies(int woodQuantity, int coreQuantity) {
         try (Connection connection = DriverManager.getConnection(SupplyGenerator.URL, SupplyGenerator.USER, SupplyGenerator.PASSWORD)) {
-            // Генерация древесины
+           
             for (int i = 0; i < woodQuantity; i++) {
                 supplyGenerator.generateNewSupply(connection);
             }
 
-            // Генерация сердцевин
+           
             for (int i = 0; i < coreQuantity; i++) {
                 supplyGenerator.generateNewSupply(connection);
             }

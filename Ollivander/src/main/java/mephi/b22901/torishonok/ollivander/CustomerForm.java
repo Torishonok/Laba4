@@ -36,7 +36,7 @@ public class CustomerForm extends JDialog {
         super(parent, "Добавить клиента", true);
         setLayout(new GridLayout(3, 2));
 
-        // Поля для ввода данных
+        
         add(new JLabel("Имя:"));
         nameField = new JTextField();
         add(nameField);
@@ -45,14 +45,14 @@ public class CustomerForm extends JDialog {
         contactInfoField = new JTextField();
         add(contactInfoField);
 
-        // Кнопки для отправки и отмены
+        
         submitButton = new JButton("Добавить");
         cancelButton = new JButton("Отмена");
 
         add(submitButton);
         add(cancelButton);
 
-        // Обработчик события для кнопки "Добавить"
+        
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -60,11 +60,11 @@ public class CustomerForm extends JDialog {
             }
         });
 
-        // Обработчик события для кнопки "Отмена"
+        
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Закрыть диалог
+                dispose(); 
             }
         });
 
@@ -89,7 +89,7 @@ public class CustomerForm extends JDialog {
             statement.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Клиент успешно добавлен!", "Успех", JOptionPane.INFORMATION_MESSAGE);
-            dispose(); // Закрыть диалог после успешного добавления
+            dispose(); 
         } catch (SQLException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "Ошибка при добавлении клиента: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);

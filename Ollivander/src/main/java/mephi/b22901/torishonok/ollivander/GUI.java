@@ -22,12 +22,12 @@ public class GUI extends JFrame {
     
     public GUI() {
         dataClearer = new DataClearer();
-        setTitle("Warehouse Manager");
+        setTitle("Ollivander shop");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(7, 1)); // 7 кнопок в одном столбце
+        setLayout(new GridLayout(7, 1)); 
 
-        // Создание кнопок
+        
         JButton infoButton = new JButton("Информация о складе");
         JButton createWandButton = new JButton("Создать новую палочку");
         JButton sellWandButton = new JButton("Продать палочку");
@@ -36,7 +36,7 @@ public class GUI extends JFrame {
         JButton purchaseHistoryButton = new JButton("История покупок");
         JButton clearDataButton = new JButton("Очистить данные");
 
-        // Добавление слушателей для кнопок (пока пустые)
+        
         infoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,9 +56,9 @@ public class GUI extends JFrame {
         sellWandButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Логика для продажи палочки
-                JOptionPane.showMessageDialog(null, "Продажа палочки еще не реализована.");
-            }
+        WandSaleDialog wandSaleDialog = new WandSaleDialog(GUI.this);
+        wandSaleDialog.setVisible(true); 
+        }
         });
 
         orderMaterialsButton.addActionListener(new ActionListener() {
@@ -72,16 +72,17 @@ public class GUI extends JFrame {
         clientBaseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CustomerForm customerForm = new CustomerForm(GUI.this);
-                customerForm.setVisible(true); // Открытие формы для ввода данных о клиенте
-            }
+        CustomerList customerList = new CustomerList(GUI.this); 
+        customerList.setVisible(true); 
+    }
         });
 
         purchaseHistoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Логика для истории покупок
-                JOptionPane.showMessageDialog(null, "История покупок еще не реализована.");
+                AllParchesHistory all = new AllParchesHistory(GUI.this);
+                all.setVisible(true);
+                
             }
         });
         
@@ -98,12 +99,12 @@ public class GUI extends JFrame {
                         JOptionPane.YES_NO_OPTION);
 
                 if (response == JOptionPane.YES_OPTION) {
-                    dataClearer.clearDatabase(); // Вызов метода очистки данных
+                    dataClearer.clearDatabase(); 
                 }
             }
         });
 
-        // Добавление кнопок на панель
+       
         add(infoButton);
         add(createWandButton);
         add(sellWandButton);

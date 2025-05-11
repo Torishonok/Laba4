@@ -22,8 +22,8 @@ import javax.swing.SwingUtilities;
 public class Ollivander {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            GUI supplyManager = new GUI();
-            supplyManager.setVisible(true);
+            GUI gui = new GUI();
+            gui.setVisible(true);
         });
     }
 }
