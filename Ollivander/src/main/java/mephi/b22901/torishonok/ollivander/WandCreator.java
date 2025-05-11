@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -37,37 +39,31 @@ public class WandCreator {
 
    public void createWand() {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD)) {
-            
-            List<String> cores = getAvailableComponents(connection, CORES, true); 
-            
-            List<String> woods = getAvailableWoods(connection); 
+        
+        List<String> cores = getAvailableComponents(connection, CORES, true); 
+        List<String> woods = getAvailableWoods(connection); 
 
-            
-            if (cores.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Нет доступных сердцевин на складе.", "Ошибка", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            if (woods.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Нет доступной древесины на складе.", "Ошибка", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            
-            String selectedCore = (String) JOptionPane.showInputDialog(null, "Выберите сердцевину:", "Выбор сердцевины", JOptionPane.QUESTION_MESSAGE, null, cores.toArray(), cores.get(0));
-            
-            String selectedWood = (String) JOptionPane.showInputDialog(null, "Выберите древесину:", "Выбор древесины", JOptionPane.QUESTION_MESSAGE, null, woods.toArray(), woods.get(0));
-
-            if (selectedCore != null && selectedWood != null) {
-                
-                addWandToDatabase(connection, selectedCore, selectedWood);
-                
-                removeUsedMaterials(connection, selectedCore, selectedWood);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Ошибка при работе с базой данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
+        if (cores.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Нет доступных сердцевин на складе.", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+        if (woods.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Нет доступной древесины на складе.", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String selectedCore = (String) JOptionPane.showInputDialog(null, "Выберите сердцевину:", "Выбор сердцевины", JOptionPane.QUESTION_MESSAGE, null, cores.toArray(), cores.get(0));
+        String selectedWood = (String) JOptionPane.showInputDialog(null, "Выберите древесину:", "Выбор древесины", JOptionPane.QUESTION_MESSAGE, null, woods.toArray(), woods.get(0));
+
+        if (selectedCore != null && selectedWood != null) {
+            addWandToDatabase(connection, selectedCore, selectedWood);
+            removeUsedMaterials(connection, selectedCore, selectedWood); // Удаляем материалы только после успешного добавления палочки
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Ошибка при работе с базой данных: " + e.getMessage(), "Ошибка", JOptionPane.ERROR_MESSAGE);
     }
+}
 
     private List<String> getAvailableComponents(Connection connection, String[] componentTypes, boolean isCore) throws SQLException {
         List<String> availableComponents = new ArrayList<>();
@@ -147,26 +143,46 @@ public class WandCreator {
     }
 
     private void removeUsedMaterials(Connection connection, String core, String wood) throws SQLException {
-    String checkSupply = "SELECT \"quantity\" FROM Supplies WHERE \"component_name\" = ? OR \"component_name\" = ?";
+    
+    String checkSupply = "SELECT \"component_name\", \"quantity\" FROM Supplies WHERE \"component_name\" = ? OR \"component_name\" = ?";
     try (PreparedStatement checkStmt = connection.prepareStatement(checkSupply)) {
         checkStmt.setString(1, core);
         checkStmt.setString(2, wood);
         ResultSet rs = checkStmt.executeQuery();
 
+        
+        Map<String, Integer> quantities = new HashMap<>();
         while (rs.next()) {
-            int quantity = rs.getInt("quantity");
-            if (quantity <= 0) {
-                JOptionPane.showMessageDialog(null, "Недостаточно материалов на складе для создания палочки.", "Ошибка", JOptionPane.ERROR_MESSAGE);
+            quantities.put(rs.getString("component_name"), rs.getInt("quantity"));
+        }
+
+        
+        for (String component : quantities.keySet()) {
+            if (quantities.get(component) <= 0) {
+                JOptionPane.showMessageDialog(null, "Недостаточно материалов на складе для создания палочки: " + component, "Ошибка", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
     }
 
-    String updateSupply = "UPDATE Supplies SET \"quantity\" = \"quantity\" - 1 WHERE (\"component_name\" = ? OR \"component_name\" = ?) AND \"quantity\" > 0";
+    
+    String updateSupply = "UPDATE Supplies SET \"quantity\" = \"quantity\" - 1 WHERE \"component_name\" = ? OR \"component_name\" = ?";
     try (PreparedStatement pstmt = connection.prepareStatement(updateSupply)) {
         pstmt.setString(1, core);
         pstmt.setString(2, wood);
         pstmt.executeUpdate();
+    }
+
+    
+    String deleteSupply = "DELETE FROM Supplies WHERE \"component_name\" = ? AND \"quantity\" = 0";
+    try (PreparedStatement deleteStmt = connection.prepareStatement(deleteSupply)) {
+        deleteStmt.setString(1, core);
+        deleteStmt.executeUpdate();
+    }
+
+    try (PreparedStatement deleteStmt = connection.prepareStatement(deleteSupply)) {
+        deleteStmt.setString(1, wood);
+        deleteStmt.executeUpdate();
     }
 }
 }

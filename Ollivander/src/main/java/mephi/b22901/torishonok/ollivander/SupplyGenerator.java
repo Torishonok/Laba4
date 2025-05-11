@@ -63,7 +63,7 @@ public class SupplyGenerator {
 
     private int getRandomQuantity() {
         Random random = new Random();
-        return random.nextInt(10) + 1; 
+        return random.nextInt(10) + 2; 
     }
 
     private String getRandomSupplier() {
