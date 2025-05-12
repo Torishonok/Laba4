@@ -57,7 +57,7 @@ public class WandCreator {
 
         if (selectedCore != null && selectedWood != null) {
             addWandToDatabase(connection, selectedCore, selectedWood);
-            removeUsedMaterials(connection, selectedCore, selectedWood); // Удаляем материалы только после успешного добавления палочки
+            removeUsedMaterials(connection, selectedCore, selectedWood); 
         }
     } catch (SQLException e) {
         e.printStackTrace();
