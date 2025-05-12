@@ -90,7 +90,7 @@ public class WandCreator {
         }
 
         
-        System.out.println("Доступные компоненты: " + availableComponents);
+        //System.out.println("Доступные компоненты: " + availableComponents);
         
         return availableComponents;
     }
@@ -118,7 +118,7 @@ public class WandCreator {
         }
 
         
-        System.out.println("Доступные древесины: " + availableWoods);
+        //System.out.println("Доступные древесины: " + availableWoods);
         
         return availableWoods;
     }
