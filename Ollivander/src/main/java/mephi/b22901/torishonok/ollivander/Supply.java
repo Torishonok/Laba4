@@ -29,9 +29,9 @@ import javax.swing.table.DefaultTableModel;
  * @author vikus
  */
 public class Supply extends JFrame {
-    private static final String URL = "jdbc:postgresql://localhost:5432/your_database"; 
-    private static final String USER = "your_username"; 
-    private static final String PASSWORD = "your_password"; 
+    private static final String URL = "jdbc:postgresql://aws-0-eu-north-1.pooler.supabase.com:5432/postgres"; 
+    private static final String USER = "postgres.dcafcvlyrhpkrxvndgnn"; 
+    private static final String PASSWORD = "Vikushasa&30"; 
 
     private JTable supplyTable;
     private DefaultTableModel tableModel;

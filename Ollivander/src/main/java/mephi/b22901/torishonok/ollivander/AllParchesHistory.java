@@ -26,9 +26,9 @@ public class AllParchesHistory extends JDialog {
     private JTextArea purchasesTextArea;
     private JButton closeButton;
 
-    private static final String URL = "jdbc:postgresql://localhost:5432/Ollivander";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "12345";
+    private static final String URL = "jdbc:postgresql://aws-0-eu-north-1.pooler.supabase.com:5432/postgres";
+    private static final String USER = "postgres.dcafcvlyrhpkrxvndgnn";
+    private static final String PASSWORD = "Vikushasa&30";
 
     public AllParchesHistory(JFrame parent) {
         super(parent, "История всех покупок", true);

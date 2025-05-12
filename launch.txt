@@ -1,0 +1,1 @@
+"‪C:\Program Files\Java\jdk-22\bin\java.exe" -jar".\Laba4\Ollivander\target\Ollivander-1.0-SNAPSHOT.jar"

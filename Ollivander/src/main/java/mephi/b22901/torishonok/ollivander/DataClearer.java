@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
  * @author vikus
  */
 public class DataClearer {
-    private static final String URL = "jdbc:postgresql://localhost:5432/Ollivander";
-    private static final String USER = "postgres";
-    private static final String PASSWORD = "12345";
+    private static final String URL = "jdbc:postgresql://aws-0-eu-north-1.pooler.supabase.com:5432/postgres";
+    private static final String USER = "postgres.dcafcvlyrhpkrxvndgnn";
+    private static final String PASSWORD = "Vikushasa&30";
 
     public void clearDatabase() {
         try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);

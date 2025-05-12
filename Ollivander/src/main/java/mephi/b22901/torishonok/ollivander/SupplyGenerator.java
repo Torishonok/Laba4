@@ -15,9 +15,9 @@ import java.util.Random;
  * @author vikus
  */
 public class SupplyGenerator {
-    static final String URL = "jdbc:postgresql://localhost:5432/Ollivander"; 
-    static final String USER = "postgres"; 
-    static final String PASSWORD = "12345"; 
+    static final String URL = "jdbc:postgresql://aws-0-eu-north-1.pooler.supabase.com:5432/postgres"; 
+    static final String USER = "postgres.dcafcvlyrhpkrxvndgnn"; 
+    static final String PASSWORD = "Vikushasa&30"; 
 
     private static final String[] COMPONENT_TYPES = {"Липа", "Ель", "Акация", "Английский дуб", "Боярышник", "Бузина", "Красное дерево", "Ясень", "Кедр","Чёрный орешник" };
     private static final String[] COMPONENT_NAMES = {"Волос Вейлы", "Сердечная жила дракона", "Шерсть единорога", "Перо феникса", "Рог рогатого змея", "Ус тролля", "Крыло феи", "Рог васелиска","Волос африканской русалки", "Шерсть вампуса"};
